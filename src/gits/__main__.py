@@ -1,30 +1,30 @@
 import collections
-import subprocess
-import pathlib
 import os
+import pathlib
+import subprocess
 
 import colorama
+
 colorama.init()
 
 
-Status = collections.namedtuple('Status', 'code, commits, behind, ahead')
+Status = collections.namedtuple("Status", "code, commits, behind, ahead")
 
 
 def git_remote():
     ret = subprocess.run(
-        ['git', 'config', '--get', 'remote.origin.url'],
-        capture_output=True,
+        ["git", "config", "--get", "remote.origin.url"], capture_output=True,
     )
     return ret.stdout
 
 
 def git_status():
-    ret = subprocess.run(['git', 'status'], capture_output=True)
+    ret = subprocess.run(["git", "status"], capture_output=True)
     return Status(
         ret.returncode,
-        b'nothing to commit, working tree clean' not in ret.stdout,
-        b'Your branch is behind of' in ret.stdout,
-        b'Your branch is ahead of' in ret.stdout,
+        b"nothing to commit, working tree clean" not in ret.stdout,
+        b"Your branch is behind of" in ret.stdout,
+        b"Your branch is ahead of" in ret.stdout,
     )
 
 
@@ -43,12 +43,12 @@ def find_uncommited_changes(root):
             else:
                 color = colorama.Style.DIM + colorama.Fore.CYAN
 
-            behind = '<-' if status.behind else '  '
-            remote = '^' if git_remote() else ' '
-            ahead = '->' if status.ahead else '  '
+            behind = "<-" if status.behind else "  "
+            remote = "^" if git_remote() else " "
+            ahead = "->" if status.ahead else "  "
             print(
-                f'{behind}{remote}{ahead}'
-                f' {color}{path.name}{colorama.Style.RESET_ALL}'
+                f"{behind}{remote}{ahead}"
+                f" {color}{path.name}{colorama.Style.RESET_ALL}"
             )
     finally:
         os.chdir(root)
@@ -58,5 +58,5 @@ def main():
     find_uncommited_changes(pathlib.Path.cwd())
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

@@ -1,4 +1,4 @@
-gits
+Gits
 ====
 
 .. image:: https://travis-ci.com/Peilonrayz/gits.svg?branch=master
@@ -8,7 +8,7 @@ gits
 About
 -----
 
-This is a skeleton project to have a standardized and concrete base for all projects.
+One command to interact with multiple git repositories.
 
 Installation
 ------------
@@ -37,4 +37,4 @@ To run all tests run ``nox``. No venv is needed; nox makes all of them for us.
 License
 -------
 
-gits is available under the MIT license.
+Gits is available under the MIT license.
